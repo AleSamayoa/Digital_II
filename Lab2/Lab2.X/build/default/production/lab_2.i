@@ -2629,6 +2629,10 @@ typedef uint16_t uintptr_t;
 # 35 "./ADC_lib.h"
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
 # 35 "./ADC_lib.h" 2
+
+
+
+void valADC (uint8_t a);
 # 15 "lab_2.c" 2
 
 
@@ -2647,16 +2651,23 @@ typedef uint16_t uintptr_t;
 
 #pragma config BOR4V = BOR40V
 #pragma config WRT = OFF
-# 47 "lab_2.c"
-uint8_t contador;
+# 49 "lab_2.c"
+char contador = 0;
+char a=1;
+char v;
+char d1;
+char d2;
+char seg1;
+char seg2;
 
+
+char tabla [16] = {0b00111111, 0b00000110, 0b01011011, 0b01001111, 0b01100110, 0b01101101, 0b01111101, 0b00000111, 0b01111111, 0b01101111, 0b01110111, 0b01111100, 0b00111001, 0b01011110, 0b01111001, 0b01110001};
 
 
 
 
 
 void setup(void);
-void counter(void);
 void inc(void);
 void rest(void);
 
@@ -2674,44 +2685,47 @@ void main(void) {
 
 
 
-
     while (1) {
 
-        counter();
-        if (PORTBbits.RB0==1){
-            inc();
-        }
+       PORTD = contador;
+        valADC(a);
+        seg1 = tabla[d1];
+        seg2 = tabla[d2];
 
-        if (PORTBbits.RB1==1){
-            rest();
-        }
 
+        if (v > contador){
+            PORTCbits.RC7 = 1;
+        }
+        else {
+            PORTCbits.RC7 = 0;
+        }
+    }
     }
 
- }
+
 
 
 
 
 
 void setup(void) {
-
-    (INTCONbits.GIE = 0);
-    (INTCONbits.GIE = 1);
-
-    PIE1bits.ADIE=1;
-    PIR1bits.ADIF=0;
-
     TRISE = 0;
     PORTE = 0;
-    ANSEL = 0;
     ANSELH = 0;
+    ANSEL = 0b00000001;
+    TRISA = 0b00000001;
     TRISB = 0b00000011;
     PORTB = 0;
     TRISC = 0;
     PORTC = 0;
     TRISD = 0;
     PORTD = 0;
+    ADCON0 = 0b01010101;
+
+
+    OPTION_REG = 0x84;
+    TMR0 = 100;
+    INTCON = 0b11101000;
 }
 
 
@@ -2723,68 +2737,44 @@ void inc(void){
 }
 void rest(void){
     contador --;
- }
-void counter(void){
-   switch (contador){
-        case 0:
-            PORTD= 0;
-            RD0 = 1;
-            _delay((unsigned long)((100)*(8000000/4000.0)));
-            break;
-        case 1:
-            PORTD= 0;
-            RD1 = 1;
-            _delay((unsigned long)((100)*(8000000/4000.0)));
-            break;
-        case 2:
-            PORTD= 0;
-            RD2 = 1;
-            _delay((unsigned long)((100)*(8000000/4000.0)));
-            break;
-       case 3:
-            PORTD= 0;
-            RD3 = 1;
-            _delay((unsigned long)((100)*(8000000/4000.0)));
-            break;
-        case 4:
-            PORTD= 0;
-            RD4 = 1;
-            _delay((unsigned long)((100)*(8000000/4000.0)));
-            break;
-        case 5:
-            PORTD= 0;
-            RD5 = 1;
-            _delay((unsigned long)((100)*(8000000/4000.0)));
-            break;
-        case 6:
-            PORTD= 0;
-            RD6 = 1;
-            _delay((unsigned long)((100)*(8000000/4000.0)));
-            break;
-        case 7:
-            PORTD= 0;
-            RD7 = 1;
-            _delay((unsigned long)((100)*(8000000/4000.0)));
-            break;
-        default:
-            PORTD= 0;
-            break;
-
-    }
 }
-
 
 
 
 void __attribute__((picinterrupt(("")))) int1(void){
 
-    if (INTCONbits.T0IF == 1){
-
-
+    INTCON = 0b11101000;
+    IOCB = 0b00000011;
+    if (INTCONbits.RBIF == 1 && INTCONbits.RBIE == 1){
+           if (PORTBbits.RB0 == 1){
+               inc();
+           }
+           if (PORTBbits.RB1 == 1){
+               rest();
+           }
+    INTCONbits.RBIF = 0;
     }
+    if (PIR1bits.ADIF == 1){
+           a=1;
+           v= ADRESH;
+           d1= ADRESH;
+           d2= ADRESH && 0b00001111;
 
-    INTCONbits.T0IF=0;
-    if (PIR1bits.ADIF==1){}
-    PIR1bits.ADIF=0;
+           PIR1bits.ADIF = 0;
+       }
+    if(INTCONbits.T0IF == 1){
+           TMR0= 100;
+           if(d1 == 1){
+               d1= 0;
+               d2 = 1;
+               PORTC = seg2;
+           }
+           else{
+               d1 = 1;
+               d2 = 0;
+               PORTC = seg1;
+           }
+          INTCONbits.T0IF = 0;
+       }
 
 }

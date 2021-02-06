@@ -34,9 +34,10 @@
 #include <xc.h> // include processor files - each processor file is guarded.  
 #include <stdint.h>
 
-//Metemos aquí los prototipos de las funciones del .c y otras variables
+//Ponemos el prototipo d ela función que vamos a poner en el .c de la libreria
+void valADC (uint8_t a);
 
-#endif
+#endif 
 
 
 
