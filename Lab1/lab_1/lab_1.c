@@ -1,18 +1,15 @@
 /*
- * File:   lab_2.c
+ * File:   lab_1.c
  * Author: Ale Samayoa
  *
- * Created on 28 de enero de 2021, 10:22 PM
+ * Created on 22 de enero de 2021, 08:13 AM
  */
-
 
 // PIC16F887 Configuration Bit Settings
 
 // 'C' source line config statements
 
 #include <xc.h>
-#include <stdint.h>
-#include "ADC_lib.h"
 
 // CONFIG1
 #pragma config FOSC = XT        // Oscillator Selection bits (XT oscillator: Crystal/resonator on RA6/OSC2/CLKOUT and RA7/OSC1/CLKIN)
@@ -30,33 +27,26 @@
 #pragma config BOR4V = BOR40V   // Brown-out Reset Selection bit (Brown-out Reset set to 4.0V)
 #pragma config WRT = OFF        // Flash Program Memory Self Write Enable bits (Write protection off)
 
+
 #define _XTAL_FREQ 8000000
-#define D0 RD0
-#define D1 RD1
-#define D2 RD2
-#define D3 RD3
-#define D4 RD4
-#define D5 RD5
-#define D6 RD6
-#define D7 RD7
+
 
 //******************************************************************************
 // Variables
 //******************************************************************************
 
-uint8_t contador; //para el contador 
-//Variable que incrementa con el boton
-
+char counter = 0; //para el semaforo, un contador que incremente
+char player1 = 0; //para cada jugador, que vaya incrementando cuando se presiona
+char player2 = 0;
 
 //******************************************************************************
 // Prototipos de funciones
 //******************************************************************************
 void setup(void);
-void counter(void);
-void inc(void);
-void rest(void);
-
-
+void semaforo(void);
+void juego1(void);
+void juego2(void);
+void ganador(void);
 //******************************************************************************
 // Ciclo principal
 //******************************************************************************
@@ -64,103 +54,133 @@ void rest(void);
 void main(void) {
 
     setup();
-    
-    
 
     //**************************************************************************
     // Loop principal
     //**************************************************************************
 
     while (1) {
-        //switch case? para encender los 7 segmentos
-        counter();
-        if (PORTBbits.RB0==1){
-            inc();
-        }
-        
-        if (PORTBbits.RB1==1){       
-            rest();
-        }
-       
+
+        if (PORTBbits.RB0 == 1)
+            semaforo();
+        if (PORTBbits.RB1 == 1)
+            juego1();
+        if (PORTBbits.RB2 == 1)
+            juego2 ();
+        if (1)
+            ganador();
+             
     }
 
- }
+   
+
+}
 
 //******************************************************************************
 // Configuración
 //******************************************************************************
 
 void setup(void) {
-    //configurar para interrupciones
-    di();
-    ei();
-    //ver configuracion para adc
-    PIE1bits.ADIE=1;
-    PIR1bits.ADIF=0;
-    
     TRISE = 0;
     PORTE = 0;
     ANSEL = 0;
     ANSELH = 0;
-    TRISB = 0b00000011;
+    TRISB = 0b00000111;
     PORTB = 0;
     TRISC = 0;
     PORTC = 0;
-    TRISD = 0;
-    PORTD = 0;
 }
-
 
 //******************************************************************************
 // Funciones
 //******************************************************************************
-void inc(void){
-    contador ++;
+
+void semaforo(void) {
+    PORTE = 0; //clear all porque si
+    PORTEbits.RE2 = 1; //rojo
+    __delay_ms(500);
+    PORTEbits.RE2 = 0;
+    PORTEbits.RE1= 1; // se apaga rojo y se enciende amarillo
+    __delay_ms(500);
+    PORTEbits.RE1 = 0; // se apaga amarillo y se enciende verde
+    PORTEbits.RE0 = 1;
+
 }
-void rest(void){
-    contador --;
- }
-void counter(void){
-   switch (contador){
+void juego1 (void){
+    player1 ++; //le sumamos uno a la variable del jugador 1
+    switch (player1){ //no sabía como hacer esto así que con switch case se hizo
         case 0:
-            PORTD= 0;
-            RD0 = 1;
-            __delay_ms(100);
+            PORTC = 0;
+            PORTCbits.RC0 = 1;
             break;
         case 1:
-            PORTD= 0;
-            RD1 = 1;
-            __delay_ms(100);
+            PORTC = 0;
+            PORTCbits.RC1 = 1;
             break;
         case 2:
-            PORTD= 0;
-            RD2 = 1;
-            __delay_ms(100);
+            PORTC = 0;
+            PORTCbits.RC2 = 1;
             break;
-       case 3:    
-            PORTD= 0;
-            RD3 = 1;
-            __delay_ms(100);
+        case 3:
+            PORTC = 0;
+            PORTCbits.RC3 = 1;
             break;
         case 4:
-            PORTD= 0;
-            RD4 = 1;
-            __delay_ms(100);
+            PORTC = 0;
+            PORTCbits.RC4 = 1;
             break;
         case 5:
-            PORTD= 0;
-            RD5 = 1;
-            __delay_ms(100);
+            PORTC = 0;
+            PORTCbits.RC5 = 1;
             break;
         case 6:
-            PORTD= 0;
-            RD6 = 1;
-            __delay_ms(100);
+            PORTC = 0;
+            PORTCbits.RC6 = 1;
             break;
         case 7:
-            PORTD= 0;
-            RD7 = 1;
-            __delay_ms(100);
+            PORTC = 0;
+            PORTCbits.RC7 = 1;
+            break;
+        default:
+            PORTC= 0;
+            break;             
+         
+    }
+}
+void juego2(void){
+    player2 ++; //le sumamos uno a la variable del jugador 2
+    switch (player2){
+        case 0:
+            PORTD = 0;
+            PORTDbits.RD0 = 1;
+            break;
+        case 1:
+            PORTD = 0;
+            PORTDbits.RD1 = 1;
+            break;
+        case 2:
+            PORTD = 0;
+            PORTDbits.RD2 = 1;
+            break;
+        case 3:
+            PORTD = 0;
+            PORTDbits.RD3 = 1;
+            break;
+        case 4:
+            PORTD = 0;
+            PORTDbits.RD4 = 1;
+            break;
+        case 5:
+            PORTD = 0;
+            PORTDbits.RD5 = 1;
+            break;
+        case 6:
+            PORTD = 0;
+            PORTDbits.RD6 = 1;
+            break;
+        case 7:
+            PORTD = 0;
+            PORTDbits.RD7 = 1;
             break;
         default:
             PORTD= 0;
@@ -168,19 +188,10 @@ void counter(void){
          
     }
 }
-
-//******************************************************************************
-// Interrupciones
-//******************************************************************************
-void __interrupt() int1(void){
-    //la configuracion para la interrupcion, en esto realizar antirebote
-    if (INTCONbits.T0IF == 1){
-        
-        
-    }
-    //antirebote?
-    INTCONbits.T0IF=0;
-    if (PIR1bits.ADIF==1){}
-    PIR1bits.ADIF=0;
-    
+void ganador(void){
+    if (PORTCbits.RC7 == 1)
+        PORTAbits.RA0 = 1;
+    if (PORTDbits.RD7 == 1)
+        PORTAbits.RA1 = 1;
+            
 }
