@@ -31,71 +31,25 @@
 
 //Esto sirve como progra defensiva por si no estan definidas las variables
 //Vamos a hacer algunos prototipos de funciones aquí también
-#ifndef __LCD_H_
-#define	__LCD_H_
+#ifndef LCD_H
+#define	LCD_H
+#include <xc.h>
+#include <stdint.h>
 
-#ifndef _XTAL_FREQ
-#define _XTAL_FREQ 8000000
-#endif
-
-#ifndef RS
-#define RS RE0
-#endif
-
-#ifndef EN
-#define EN RE1
-#endif
-
-#ifndef D0
-#define D0 RD0
-#endif
-
-#ifndef D1
-#define D1 RD1
-#endif
-
-#ifndef D2
-#define D2 RD2
-#endif
-
-#ifndef D3
-#define D3 RD3
-#endif
-
-#ifndef D4
-#define D4 RD4
-#endif
-
-#ifndef D5
-#define D5 RD5
-#endif
-
-#ifndef D6
-#define D6 RD6
-#endif
-
-#ifndef D7
-#define D7 RD7
-#endif
-
-#include <xc.h> 
-
-// This is a guard condition so that contents of this file are not included
-// more than once.  
-#ifndef XC_HEADER_TEMPLATE_H
-#define	XC_HEADER_TEMPLATE_H
-
-#include <xc.h> // include processor files - each processor file is guarded. 
+#define RS PORTEbits.RE0
+#define RW PORTEbits.RE1
+#define EN PORTEbits.RE2
+#define LCD_datos PORTD
+#define row 2
+#define fil 16
 
 
+void LCD_cmd (char cmd);
+void LCD_data (char data);
+void LCD_data_string(char* string);
+void LCD_move_cursor(char line);
+void LCD_Init(void);
 
-void Lcd_Cmd(char a);
 
-void Lcd_Clear(void);
-
-void Lcd_Init(void);
-
-
-#endif	/* XC_HEADER_TEMPLATE_H */
-
+#endif	/* LCD_INTERFACE_H */
 

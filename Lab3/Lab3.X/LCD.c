@@ -10,60 +10,63 @@
  */
 
 //LCD Functions Developed by electroSome
-
+#include <stdint.h> 
+#include <pic16f887.h>
 #include "LCD.h"
+#define _XTAL_FREQ 8000000
 
-//Encendomos la LCD
-void Lcd_Cmd(char a)
-{
-	RS = 0;             // => RS = 0
-	Lcd_Port(a);
-	EN  = 1;             // => E = 1
-        __delay_ms(4);
-        EN  = 0;             // => E = 0
+
+void LCD_cmd (char cmd){
+    LCD_datos = cmd;
+    RS = 0;
+    RW = 0;
+    EN = 1;
+    __delay_ms(10);
+    EN = 0;
+    __delay_ms(1);
+    
 }
 
-void Lcd_Clear(void)
-{
-	Lcd_Cmd(0);
-	Lcd_Cmd(1);
+void LCD_data (char data){
+     LCD_datos = data;
+     RS = 1;
+     RW = 0;
+     EN = 1;
+     __delay_ms(10);
+     EN = 0;
+     __delay_ms(1);
+    
 }
 
-
-
-void Lcd_Init(void)
-{
-  Lcd_Port(0x00);
-   __delay_ms(20);
-  Lcd_Cmd(0x03);
-	__delay_ms(5);
-  Lcd_Cmd(0x03);
-	__delay_ms(11);
-  Lcd_Cmd(0x03);
-  /////////////////////////////////////////////////////
-  Lcd_Cmd(0x02);
-  Lcd_Cmd(0x02);
-  Lcd_Cmd(0x08);
-  Lcd_Cmd(0x00);
-  Lcd_Cmd(0x0C);
-  Lcd_Cmd(0x00);
-  Lcd_Cmd(0x06);
+void LCD_data_string(char* string){
+    int index;
+    for(index =0;index<16;index++) {
+        if(string[index] == '\0')
+            break;
+        LCD_datos=(string[index]);
+    }
 }
 
-void Lcd_Write_Char(char a)
-{
-   char temp,y;
-   temp = a&0x0F;
-   y = a&0xF0;
-   RS = 1;             // => RS = 1
-   Lcd_Port(y>>4);             //Data transfer
-   EN = 1;
-   __delay_us(40);
-   EN = 0;
-   Lcd_Port(temp);
-   EN = 1;
-   __delay_us(40);
-   EN = 0;
+void LCD_move_cursor (char line){
+    char addr;
+    if(line == 1)
+        addr = 0x80;
+    else
+        addr = 0xc0;
+    LCD_cmd (addr);    
 }
+   
+
+void LCD_Init(void)
+{
+    TRISE = 0;       // Port Output for control pins
+    TRISD = 0;       // Port output for Data pins
+    __delay_ms(5);
+    LCD_cmd (0x38);   // 8 bit mode, 5*7 matrix with 2 line
+    LCD_cmd (0x0E);   // Display and cursor ON
+    LCD_cmd (0x01);   // clear LCD
+    LCD_cmd (0x80);   // Move cursor to first line
+    }
+
 
 
