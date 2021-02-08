@@ -2629,7 +2629,7 @@ extern __bank0 __bit __timeout;
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
 # 37 "./LCD.h" 2
-# 47 "./LCD.h"
+# 49 "./LCD.h"
 void LCD_cmd (char cmd);
 void LCD_data (char data);
 void LCD_data_string(char* string);
@@ -2656,7 +2656,7 @@ void LCD_data (char data){
      PORTEbits.RE0 = 1;
      PORTEbits.RE1 = 0;
      PORTEbits.RE2 = 1;
-     _delay((unsigned long)((10)*(8000000/4000000.0)));
+     _delay((unsigned long)((10)*(8000000/4000.0)));
      PORTEbits.RE2 = 0;
      _delay((unsigned long)((1)*(8000000/4000.0)));
 

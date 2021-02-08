@@ -2821,7 +2821,7 @@ typedef uint16_t uintptr_t;
 # 37 "./LCD.h"
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
 # 37 "./LCD.h" 2
-# 47 "./LCD.h"
+# 49 "./LCD.h"
 void LCD_cmd (char cmd);
 void LCD_data (char data);
 void LCD_data_string(char* string);

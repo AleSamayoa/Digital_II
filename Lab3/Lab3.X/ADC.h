@@ -18,40 +18,22 @@
  * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE 
  * TERMS. 
  */
-/*
- * File: LCD.h  
- * Se utilizó y se adaptaron las librerías de Ligo George 
- * de la página www.electrosome.com
- * Enlace: https://electrosome.com/lcd-pic-mplab-xc8/
+
+/* 
+ * File:   
+ * Author: 
+ * Comments:
  * Revision history: 
  */
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
+#ifndef XC_HEADER_TEMPLATE_H
+#define	XC_HEADER_TEMPLATE_H
 
-//Esto sirve como progra defensiva por si no estan definidas las variables
-//Vamos a hacer algunos prototipos de funciones aquí también
-#ifndef LCD_H
-#define	LCD_H
-#include <xc.h>
-#include <stdint.h>
-//***************************************************************************
-//variables
-//***************************************************************************
-#define RS PORTEbits.RE0
-#define RW PORTEbits.RE1
-#define EN PORTEbits.RE2
-#define LCD_datos PORTD
-#define row 2
-#define fil 16
+#include <xc.h> // include processor files - each processor file is guarded.  
 
 
-void LCD_cmd (char cmd);
-void LCD_data (char data);
-void LCD_data_string(char* string);
-void LCD_move_cursor(char line);
-void LCD_Init(void);
 
-
-#endif	/* LCD_INTERFACE_H */
+#endif	/* XC_HEADER_TEMPLATE_H */
 

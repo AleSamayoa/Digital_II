@@ -1,4 +1,4 @@
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\sources\\c90\\pic\\__eeprom.c"
+# 1 "ADC.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,35 +6,17 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\sources\\c90\\pic\\__eeprom.c" 2
-# 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
-# 18 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
-extern const char __xc8_OPTIM_SPEED;
-
-extern double __fpnormalize(double);
-
-
-
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\xc8debug.h" 1 3
-# 13 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\xc8debug.h" 3
-#pragma intrinsic(__builtin_software_breakpoint)
-extern void __builtin_software_breakpoint(void);
-# 24 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-
-
-
-# 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\pic.h" 1 3
+# 1 "ADC.c" 2
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
+# 13 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
+typedef signed char int8_t;
 
 
 
 
-# 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\htc.h" 1 3
 
 
-
-# 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
-# 5 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\htc.h" 2 3
-# 6 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\pic.h" 2 3
+typedef signed int int16_t;
 
 
 
@@ -42,8 +24,124 @@ extern void __builtin_software_breakpoint(void);
 
 
 
-# 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\pic_chip_select.h" 1 3
-# 723 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\pic_chip_select.h" 3
+typedef __int24 int24_t;
+
+
+
+
+
+
+
+typedef signed long int int32_t;
+# 52 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
+typedef unsigned char uint8_t;
+
+
+
+
+
+typedef unsigned int uint16_t;
+
+
+
+
+
+
+typedef __uint24 uint24_t;
+
+
+
+
+
+
+typedef unsigned long int uint32_t;
+# 88 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
+typedef signed char int_least8_t;
+
+
+
+
+
+
+
+typedef signed int int_least16_t;
+# 109 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
+typedef __int24 int_least24_t;
+# 118 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
+typedef signed long int int_least32_t;
+# 136 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
+typedef unsigned char uint_least8_t;
+
+
+
+
+
+
+typedef unsigned int uint_least16_t;
+# 154 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
+typedef __uint24 uint_least24_t;
+
+
+
+
+
+
+
+typedef unsigned long int uint_least32_t;
+# 181 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
+typedef signed char int_fast8_t;
+
+
+
+
+
+
+typedef signed int int_fast16_t;
+# 200 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
+typedef __int24 int_fast24_t;
+
+
+
+
+
+
+
+typedef signed long int int_fast32_t;
+# 224 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
+typedef unsigned char uint_fast8_t;
+
+
+
+
+
+typedef unsigned int uint_fast16_t;
+# 240 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
+typedef __uint24 uint_fast24_t;
+
+
+
+
+
+
+typedef unsigned long int uint_fast32_t;
+# 268 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
+typedef int32_t intmax_t;
+# 282 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
+typedef uint32_t uintmax_t;
+
+
+
+
+
+
+typedef int16_t intptr_t;
+
+
+
+
+typedef uint16_t uintptr_t;
+# 1 "ADC.c" 2
+
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\proc\\pic16f887.h" 1 3
 # 44 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\proc\\pic16f887.h" 3
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\__at.h" 1 3
@@ -2454,7 +2552,46 @@ extern volatile __bit nW __attribute__((address(0x4A2)));
 
 
 extern volatile __bit nWRITE __attribute__((address(0x4A2)));
-# 724 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\pic_chip_select.h" 2 3
+# 2 "ADC.c" 2
+
+# 1 "./ADC.h" 1
+# 34 "./ADC.h"
+# 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
+# 18 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
+extern const char __xc8_OPTIM_SPEED;
+
+extern double __fpnormalize(double);
+
+
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\xc8debug.h" 1 3
+# 13 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\xc8debug.h" 3
+#pragma intrinsic(__builtin_software_breakpoint)
+extern void __builtin_software_breakpoint(void);
+# 24 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
+
+
+
+# 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\pic.h" 1 3
+
+
+
+
+# 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\htc.h" 1 3
+
+
+
+# 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
+# 5 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\htc.h" 2 3
+# 6 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\pic.h" 2 3
+
+
+
+
+
+
+
+# 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\pic_chip_select.h" 1 3
 # 14 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\pic.h" 2 3
 # 30 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\pic.h" 3
 #pragma intrinsic(__nop)
@@ -2487,176 +2624,15 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\sources\\c90\\pic\\__eeprom.c" 2
+# 34 "./ADC.h" 2
+# 3 "ADC.c" 2
 
 
-
-
-void
-__eecpymem(volatile unsigned char *to, __eeprom unsigned char * from, unsigned char size)
-{
- volatile unsigned char *cp = to;
-
- while (EECON1bits.WR) continue;
- EEADR = (unsigned char)from;
- while(size--) {
-  while (EECON1bits.WR) continue;
-
-  EECON1 &= 0x7F;
-
-  EECON1bits.RD = 1;
-  *cp++ = EEDATA;
-  ++EEADR;
- }
-# 36 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\sources\\c90\\pic\\__eeprom.c"
-}
-
-void
-__memcpyee(__eeprom unsigned char * to, const unsigned char *from, unsigned char size)
-{
- const unsigned char *ptr =from;
-
- while (EECON1bits.WR) continue;
- EEADR = (unsigned char)to - 1U;
-
- EECON1 &= 0x7F;
-
- while(size--) {
-  while (EECON1bits.WR) {
-   continue;
-  }
-  EEDATA = *ptr++;
-  ++EEADR;
-  STATUSbits.CARRY = 0;
-  if (INTCONbits.GIE) {
-   STATUSbits.CARRY = 1;
-  }
-  INTCONbits.GIE = 0;
-  EECON1bits.WREN = 1;
-  EECON2 = 0x55;
-  EECON2 = 0xAA;
-  EECON1bits.WR = 1;
-  EECON1bits.WREN = 0;
-  if (STATUSbits.CARRY) {
-   INTCONbits.GIE = 1;
-  }
- }
-# 101 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\sources\\c90\\pic\\__eeprom.c"
-}
-
-unsigned char
-__eetoc(__eeprom void *addr)
-{
- unsigned char data;
- __eecpymem((unsigned char *) &data,addr,1);
- return data;
-}
-
-unsigned int
-__eetoi(__eeprom void *addr)
-{
- unsigned int data;
- __eecpymem((unsigned char *) &data,addr,2);
- return data;
-}
-
-#pragma warning push
-#pragma warning disable 2040
-__uint24
-__eetom(__eeprom void *addr)
-{
- __uint24 data;
- __eecpymem((unsigned char *) &data,addr,3);
- return data;
-}
-#pragma warning pop
-
-unsigned long
-__eetol(__eeprom void *addr)
-{
- unsigned long data;
- __eecpymem((unsigned char *) &data,addr,4);
- return data;
-}
-
-#pragma warning push
-#pragma warning disable 1516
-unsigned long long
-__eetoo(__eeprom void *addr)
-{
- unsigned long long data;
- __eecpymem((unsigned char *) &data,addr,8);
- return data;
-}
-#pragma warning pop
-
-unsigned char
-__ctoee(__eeprom void *addr, unsigned char data)
-{
- __memcpyee(addr,(unsigned char *) &data,1);
- return data;
-}
-
-unsigned int
-__itoee(__eeprom void *addr, unsigned int data)
-{
- __memcpyee(addr,(unsigned char *) &data,2);
- return data;
-}
-
-#pragma warning push
-#pragma warning disable 2040
-__uint24
-__mtoee(__eeprom void *addr, __uint24 data)
-{
- __memcpyee(addr,(unsigned char *) &data,3);
- return data;
-}
-#pragma warning pop
-
-unsigned long
-__ltoee(__eeprom void *addr, unsigned long data)
-{
- __memcpyee(addr,(unsigned char *) &data,4);
- return data;
-}
-
-#pragma warning push
-#pragma warning disable 1516
-unsigned long long
-__otoee(__eeprom void *addr, unsigned long long data)
-{
- __memcpyee(addr,(unsigned char *) &data,8);
- return data;
-}
-#pragma warning pop
-
-float
-__eetoft(__eeprom void *addr)
-{
- float data;
- __eecpymem((unsigned char *) &data,addr,3);
- return data;
-}
-
-double
-__eetofl(__eeprom void *addr)
-{
- double data;
- __eecpymem((unsigned char *) &data,addr,4);
- return data;
-}
-
-float
-__fttoee(__eeprom void *addr, float data)
-{
- __memcpyee(addr,(unsigned char *) &data,3);
- return data;
-}
-
-double
-__fltoee(__eeprom void *addr, double data)
-{
- __memcpyee(addr,(unsigned char *) &data,4);
- return data;
+void ADC_Init(void){
+   TRISA = 0b00000011;
+   ADCON1 = 0b10000000;
+   ANSEL = 0b00000011;
+   ADCON0 = 0b11000001;
+   ADCON0 = 0b11000001;
+   ADCON0.GO = 1;
 }
