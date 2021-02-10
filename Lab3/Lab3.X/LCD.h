@@ -1,23 +1,3 @@
-/* Microchip Technology Inc. and its subsidiaries.  You may use this software 
- * and any derivatives exclusively with Microchip products. 
- * 
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES, WHETHER 
- * EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
- * WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A 
- * PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP PRODUCTS, COMBINATION 
- * WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION. 
- *
- * IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
- * INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
- * WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
- * BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE 
- * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS 
- * IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF 
- * ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
- *
- * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE 
- * TERMS. 
- */
 /*
  * File: LCD.h  
  * Se utilizó y se adaptaron las librerías de Ligo George 
@@ -38,20 +18,60 @@
 //***************************************************************************
 //variables
 //***************************************************************************
-#define RS PORTEbits.RE0
-#define RW PORTEbits.RE1
-#define EN PORTEbits.RE2
-#define LCD_datos PORTD
-#define row 2
-#define fil 16
+#ifndef RS
+#define RS RE0
+#endif
+
+#ifndef RW
+#define RW RE1
+#endif
+
+#ifndef EN
+#define EN RE2
+#endif
+
+#ifndef D0
+#define D0 RD0
+#endif
+
+#ifndef D1
+#define D1 RD1
+#endif
+
+#ifndef D2
+#define D2 RD2
+#endif
+
+#ifndef D3
+#define D3 RD3
+#endif
+
+#ifndef D4
+#define D4 RD4
+#endif
+
+#ifndef D5
+#define D5 RD5
+#endif
+
+#ifndef D6
+#define D6 RD6
+#endif
+
+#ifndef D7
+#define D7 RD7
+#endif
 
 
-void LCD_cmd (char cmd);
-void LCD_data (char data);
-void LCD_data_string(char* string);
-void LCD_move_cursor(char line);
+
 void LCD_Init(void);
+void LCD_cmd (uint8_t cmd);
+void LCD_data (char data);
+void LCD_datos(uint8_t x);
+void LCD_data_string(char *a);
+void LCD_move_cursor(uint8_t a, uint8_t b);
+void Clear (void);
 
 
-#endif	/* LCD_INTERFACE_H */
+#endif	/* LCD_H */
 

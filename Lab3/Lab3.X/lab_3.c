@@ -10,8 +10,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <pic16f887.h>
 #include "LCD.h"
+#include "ADC.h"
+#include "USART.h"
 //****************************************************************
 // CONFIGURACION
 //******************************************************************************
@@ -30,21 +31,85 @@
 #pragma config BOR4V = BOR40V   // Brown-out Reset Selection bit (Brown-out Reset set to 4.0V)
 #pragma config WRT = OFF        // Flash Program Memory Self Write Enable bits (Write protection off)
 
-//Definimos los pines según como los tengo en proteus
+
 
 #define _XTAL_FREQ 8000000
 
 //******************************************************************************
 // Variables
 //******************************************************************************
-
-
+uint8_t ADC1;
+uint8_t ADC2;
+uint8_t contador;
+float v1=0.0;
+float v2=0.0;
+char valUSART =0;
+char d[20];
+//******************************************************************************
+// Funciones
+//******************************************************************************
+void setup (void);
+void __interrupt()ISR ();
+float val(uint8_t b); 
+void main(void);
 //*****************************************************************************
-void main()
-{
+void main(){
+    setup();
+    ADC_Init ();
+    USART_In (9600);
     LCD_Init();
-    LCD_data_string("Hello World !!");
-    LCD_move_cursor(2);
-    LCD_data_string ("** mcuhq **");
-    while(1);
+    Clear();
+    while(1){
+        ADC1= ADCval(0);
+        ADC2= ADCval(1);
+        v1= val(ADC1);
+        v2= val(ADC2);
+        Wr_USART_String("V1   V2   contador \n");
+        sprintf(d, "%2.1f   %2.1f   %d", v1, v2, contador);
+        Wr_USART_String(d);
+        Wr_USART(13);
+        Wr_USART(10);
+        Clear();
+        LCD_move_cursor (1,1);
+        LCD_data_string("V1   V2   conta");
+        LCD_move_cursor(2,0);
+        LCD_data_string(d);
+      __delay_ms(500);      
+    }
+    return;
+}
+
+
+//******************************************************************************
+// Funciones
+//******************************************************************************
+void setup(void){
+    ANSELH = 0;
+    ANSEL  = 0;
+    TRISA = 0;
+    PORTA = 0;    
+    TRISD = 0;
+    PORTD = 0; 
+    TRISE = 0;
+    PORTE = 0;
+//Para las interrupciones
+ 
+    INTCONbits.PEIE = 1;
+    PIE1bits.RCIE   = 1;
+    PIR1bits.RCIF   = 0;
+    INTCONbits.GIE  = 1;
+}
+
+//para la conversion a decimales
+float val(uint8_t b){
+    return b*0.0196;
+}
+
+void __interrupt() ISR(){
+    if (RCIF == 1){
+        RCIF = 0;
+        valUSART= Rd_USART();
+        if (valUSART == '+'){contador++;}
+        else if (valUSART== '-'){contador--;}    
+    }
 }

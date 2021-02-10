@@ -2816,18 +2816,43 @@ typedef int16_t intptr_t;
 typedef uint16_t uintptr_t;
 # 12 "lab_3.c" 2
 
-
 # 1 "./LCD.h" 1
-# 37 "./LCD.h"
+# 17 "./LCD.h"
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
-# 37 "./LCD.h" 2
-# 49 "./LCD.h"
-void LCD_cmd (char cmd);
-void LCD_data (char data);
-void LCD_data_string(char* string);
-void LCD_move_cursor(char line);
+# 17 "./LCD.h" 2
+# 67 "./LCD.h"
 void LCD_Init(void);
+void LCD_cmd (uint8_t cmd);
+void LCD_data (char data);
+void LCD_datos(uint8_t x);
+void LCD_data_string(char *a);
+void LCD_move_cursor(uint8_t a, uint8_t b);
+void Clear (void);
+# 13 "lab_3.c" 2
+
+# 1 "./ADC.h" 1
+# 12 "./ADC.h"
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
+# 12 "./ADC.h" 2
+
+
+void ADC_Init(void);
+uint8_t ADCval(uint8_t x);
 # 14 "lab_3.c" 2
+
+# 1 "./USART.h" 1
+# 15 "./USART.h"
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
+# 15 "./USART.h" 2
+
+
+char USART_In(const long int baudrate);
+void Wr_USART(uint8_t a);
+void Wr_USART_String(char *a);
+char UART_In(const long int baudrate);
+uint8_t Rd_USART(void);
+void Rd_USART_String(char *Output, unsigned int length);
+# 15 "lab_3.c" 2
 
 
 
@@ -2846,12 +2871,86 @@ void LCD_Init(void);
 
 #pragma config BOR4V = BOR40V
 #pragma config WRT = OFF
-# 43 "lab_3.c"
-void main()
-{
+
+
+
+
+
+
+
+
+uint8_t ADC1;
+uint8_t ADC2;
+uint8_t contador;
+float v1=0.0;
+float v2=0.0;
+char valUSART =0;
+char d[20];
+
+
+
+void setup (void);
+void __attribute__((picinterrupt((""))))ISR ();
+float val(uint8_t b);
+void main(void);
+
+void main(){
+    setup();
+    ADC_Init ();
+    USART_In (9600);
     LCD_Init();
-    LCD_data_string("Hello World !!");
-    LCD_move_cursor(2);
-    LCD_data_string ("** mcuhq **");
-    while(1);
+    Clear();
+    while(1){
+        ADC1= ADCval(0);
+        ADC2= ADCval(1);
+        v1= val(ADC1);
+        v2= val(ADC2);
+        Wr_USART_String("V1   V2   contador \n");
+        sprintf(d, "%2.1f   %2.1f   %d", v1, v2, contador);
+        Wr_USART_String(d);
+        Wr_USART(13);
+        Wr_USART(10);
+        Clear();
+        LCD_move_cursor (1,1);
+        LCD_data_string("V1   V2   conta");
+        LCD_move_cursor(2,0);
+        LCD_data_string(d);
+      _delay((unsigned long)((500)*(8000000/4000.0)));
+    }
+    return;
+}
+
+
+
+
+
+void setup(void){
+    ANSELH = 0;
+    ANSEL = 0;
+    TRISA = 0;
+    PORTA = 0;
+    TRISD = 0;
+    PORTD = 0;
+    TRISE = 0;
+    PORTE = 0;
+
+
+    INTCONbits.PEIE = 1;
+    PIE1bits.RCIE = 1;
+    PIR1bits.RCIF = 0;
+    INTCONbits.GIE = 1;
+}
+
+
+float val(uint8_t b){
+    return b*0.0196;
+}
+
+void __attribute__((picinterrupt(("")))) ISR(){
+    if (RCIF == 1){
+        RCIF = 0;
+        valUSART= Rd_USART();
+        if (valUSART == '+'){contador++;}
+        else if (valUSART== '-'){contador--;}
+    }
 }
