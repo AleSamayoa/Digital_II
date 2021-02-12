@@ -3,8 +3,6 @@
  * Author: Ale Samayoa
  */
 
-
-
 #include <stdint.h> 
 #include <pic16f887.h>
 #include "ADC_lib.h"
