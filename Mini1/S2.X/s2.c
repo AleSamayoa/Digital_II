@@ -7,19 +7,8 @@
 /* Diseñe e implemente una rutina para un microcontrolador utilizando
  * dos botones pueda incrementar y decrementar un contador de 8 bits.
  */
-
-
 #include <xc.h>
 #include <stdint.h>
-#define D0 RD0
-#define D1 RD1
-#define D2 RD2
-#define D3 RD3
-#define D4 RD4
-#define D5 RD5
-#define D6 RD6
-#define D7 RD7
-
 
 // CONFIG1
 #pragma config FOSC = XT        // Oscillator Selection bits (XT oscillator: Crystal/resonator on RA6/OSC2/CLKOUT and RA7/OSC1/CLKIN)
@@ -37,64 +26,31 @@
 #pragma config BOR4V = BOR40V   // Brown-out Reset Selection bit (Brown-out Reset set to 4.0V)
 #pragma config WRT = OFF        // Flash Program Memory Self Write Enable bits (Write protection off)
 
-#define _XTAL_FREQ 8000000
-//******************************************************************************
-// Variables
-//******************************************************************************
-
-char contador = 0; //para el contador 
-
-//******************************************************************************
-// Prototipos de funciones
-//******************************************************************************
-void setup(void);
-void inc(void);
-void rest(void);
 
 
-//******************************************************************************
-// Ciclo principal
-//******************************************************************************
+#define _XTAL_FREQ 8000000            //8 MHZ
+#define B0 RB0
+#define B1 RB1
+//-----------------------------------------------------------------------------
+//Funciones
+//--------------------------------------------
+void Setup (void);
 
-void main(void) {
+char  contador = 0;
 
-    setup();
-    //**************************************************************************
-    // Loop principal
-    //**************************************************************************
-    while (1) {
-        
-       PORTD = contador;
-    }
-    }
-
- 
-
-//******************************************************************************
-// Configuración
-//******************************************************************************
-
-void setup(void) {
-    TRISE = 0;
-    PORTE = 0;
+//-----------------------------------------------------------------------------
+//CONFIG
+//--------------------------------------------
+void Setup(void){
+    ANSEL = 0;
     ANSELH = 0;
-    ANSEL = 0b00000001;
-    TRISA = 0b00000001;
     TRISB = 0b00000011;
     PORTB = 0;
     TRISC = 0;
     PORTC = 0;
     TRISD = 0;
     PORTD = 0;
-    ADCON0 = 0b01010101;
-    
-    //timer 0
-    OPTION_REG  = 0x84;
-    TMR0        = 100;
-    INTCON      = 0b11101000;
 }
-
-
 //******************************************************************************
 // Funciones
 //******************************************************************************
@@ -104,21 +60,25 @@ void inc(void){
 void rest(void){
     contador --;
 }
-//******************************************************************************
-// Interrupciones
-//******************************************************************************
-void __interrupt() int1(void){
-    //la configuracion para la interrupcion,
-    INTCON  = 0b11101000; 
-    IOCB = 0b00000011;
-    if (INTCONbits.RBIF == 1 && INTCONbits.RBIE == 1){
-           if (PORTBbits.RB0 == 1){
-               inc();
-           }           
-           if (PORTBbits.RB1 == 1){
-               rest();
-           }
-    INTCONbits.RBIF = 0;
-    }  
-}
 
+
+//-----------------------------------------------------------------------------
+//Programis
+//--------------------------------------------
+void main(void) {
+    Setup();
+    while(1){
+      PORTD = contador;
+      if (B0 ==1){
+                __delay_ms(25);
+                inc();
+                
+                
+        }
+      if (B1 ==1){
+                __delay_ms(25);
+                rest();
+                
+        }
+    }
+}
