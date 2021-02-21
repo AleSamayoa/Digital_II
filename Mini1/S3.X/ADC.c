@@ -1,8 +1,3 @@
-/*
- * File:   ADC_lib.c
- * Author: Ale Samayoa
- */
-//Libreria ADC S1
 #include <stdint.h> 
 #include <pic16f887.h>
 #include "ADC.h"

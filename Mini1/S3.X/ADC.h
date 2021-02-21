@@ -4,7 +4,8 @@
  * Comments: Librería para el ADC
  * Revision history: 
  */
-//Libreria ADC S1
+
+
 // This is a guard condition so that contents of this file are not included
 // more than once.  
 #ifndef ADC_H
@@ -17,3 +18,4 @@
 void valADC (uint8_t a);
 
 #endif 
+
