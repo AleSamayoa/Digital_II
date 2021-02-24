@@ -2635,20 +2635,27 @@ extern __bank0 __bit __timeout;
 # 14 "./ADC.h" 2
 
 
-
-void valADC (uint8_t a);
+void valadc(volatile uint8_t *a);
+void adcon(void);
 # 8 "ADC.c" 2
 
 
 
-void valADC(uint8_t a) {
-    INTCON = 0b11101000;
-    PIR1bits.ADIF = 0;
-    PIE1bits.ADIE = 1;
-    ADCON1bits.ADFM = 0;
-    if (a == 1){
-        _delay((unsigned long)((10)*(8000000/4000000.0)));
-        a = 0;
-        ADCON0bits.GO = 1;
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
+# 12 "ADC.c" 2
+
+
+
+
+
+void valadc(volatile uint8_t *a) {
+    *a = ADRESH;
+}
+
+void adcon(void) {
+    if (0 == ADCON0bits.GO_nDONE) {
+        _delay((unsigned long)((5)*(4000000/4000.0)));
+        ADCON0bits.GO_nDONE = 1;
     }
 }

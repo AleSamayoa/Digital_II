@@ -11,53 +11,68 @@
 [v ___eecpymem __eecpymem `(v  1 e 1 0 ]
 "39
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
-"44 C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini1\S2.X\s2.c
+"43 C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini1\S2.X\s2.c
 [v _Setup Setup `(v  1 e 1 0 ]
-"57
-[v _inc inc `(v  1 e 1 0 ]
-"60
-[v _rest rest `(v  1 e 1 0 ]
-"68
+"65
+[v _int1 int1 `II(v  1 e 1 0 ]
+"91
 [v _main main `(v  1 e 1 0 ]
 "228 C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
 [v _PORTB PORTB `VEuc  1 e 1 @6 ]
-"290
-[v _PORTC PORTC `VEuc  1 e 1 @7 ]
 "352
 [v _PORTD PORTD `VEuc  1 e 1 @8 ]
+"459
+[v _INTCON INTCON `VEuc  1 e 1 @11 ]
+"843
+[v _SSPBUF SSPBUF `VEuc  1 e 1 @19 ]
+"850
+[v _SSPCON SSPCON `VEuc  1 e 1 @20 ]
+"1416
+[v _TRISA TRISA `VEuc  1 e 1 @133 ]
 "1478
 [v _TRISB TRISB `VEuc  1 e 1 @134 ]
 "1540
 [v _TRISC TRISC `VEuc  1 e 1 @135 ]
 "1602
 [v _TRISD TRISD `VEuc  1 e 1 @136 ]
+"1702
+[v _PIE1 PIE1 `VEuc  1 e 1 @140 ]
+"1979
+[v _SSPCON2 SSPCON2 `VEuc  1 e 1 @145 ]
+"2177
+[v _SSPSTAT SSPSTAT `VEuc  1 e 1 @148 ]
+"2416
+[v _IOCB IOCB `VEuc  1 e 1 @150 ]
 "3387
 [v _ANSEL ANSEL `VEuc  1 e 1 @392 ]
 "3449
 [v _ANSELH ANSELH `VEuc  1 e 1 @393 ]
+"3896
+[v _GIE GIE `VEb  1 e 0 @95 ]
 "4103
 [v _RB0 RB0 `VEb  1 e 0 @48 ]
 "4106
 [v _RB1 RB1 `VEb  1 e 0 @49 ]
-"39 C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini1\S2.X\s2.c
+"4130
+[v _RBIF RBIF `VEb  1 e 0 @88 ]
+"4277
+[v _SSPIF SSPIF `VEb  1 e 0 @99 ]
+"37 C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini1\S2.X\s2.c
 [v _contador contador `uc  1 e 1 0 ]
-"68
+"38
+[v _spidatos spidatos `uc  1 e 1 0 ]
+"91
 [v _main main `(v  1 e 1 0 ]
 {
-"84
+"96
 } 0
-"60
-[v _rest rest `(v  1 e 1 0 ]
+"43
+[v _Setup Setup `(v  1 e 1 0 ]
 {
 "62
 } 0
-"57
-[v _inc inc `(v  1 e 1 0 ]
+"65
+[v _int1 int1 `II(v  1 e 1 0 ]
 {
-"59
-} 0
-"44
-[v _Setup Setup `(v  1 e 1 0 ]
-{
-"53
+"84
 } 0

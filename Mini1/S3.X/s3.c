@@ -30,64 +30,71 @@
 #pragma config WRT = OFF        // Flash Program Memory Self Write Enable bits (Write protection off)
 
 //******************************************************************************
-//                          Funciones
+///Variables y prototipos de funciones
 //******************************************************************************
 
-#define _XTAL_FREQ 8000000  
+#define _XTAL_FREQ 4000000  
 
 void setup(void);
-void semaforo(void);
-char a=1;
-char v;
+void __interrupt()int1(void); 
+uint8_t spidatos = 0;
+uint8_t datos = 0; 
+
 //******************************************************************************
 //Loop principal 
 //******************************************************************************
 
 void main(void) {
-    setup();
+    setup();        //Config puertos
     while (1) {
-        valADC(a);
-        semaforo();
+        adcon();
+        //t<25°
+        if (datos < 80) {
+            PORTD = 0B00000100;
+        //t>36
+        } else if (datos > 91) {
+            PORTD = 0B00000001;
+        } else  {
+            PORTD = 0B00000010;
+        }
     }
 }
+
 
 //******************************************************************************
 //Funciones
 //******************************************************************************
 void setup(void) {
-    ANSELH = 0;
-    ANSEL = 0b00000001;
-    TRISA = 0b00000001;
-    ADCON0 = 0b01010101;
-    
-    //timer 0
-    OPTION_REG  = 0x84;
-    TMR0        = 100;
-    INTCON      = 0b11101000;
-}
-void semaforo (void){
-   while (1) {
-        if (v < 80){
-            PORTD = 0b00000001;
-        }
-        else if(v >= 80 && v <= 91){
-            PORTD = 0b00000010;
-        }
-        else {
-            PORTD = 0b00000100;
-        }
-}
-}
-void __interrupt() int1(void){
-    //la configuracion para la interrupcion,
-    INTCON  = 0b11101000; 
-    IOCB = 0b00000011;
-    if (PIR1bits.ADIF == 1){
-           a=1;
-           v= ADRESH;
-           
-           PIR1bits.ADIF = 0;
-       }
-       
+    //Configuración de puertos
+    TRISB &= 0B11111111; 
+    TRISD &= 0; 
+    ANSELH &= 0B00010000; 
+    PORTD = 0; 
+    PORTB = 0;
+    // Configuración ADC en B0, justificado a la iz, con frecuencia Fosc/8
+    ADCON0 = 0B01110000; 
+    ADCON1 = 0B00010000; 
+    ADCON0bits.ADON = 1; 
+    // Configuración SPI como esclavo
+    TRISA = 0B00100000; 
+    TRISC = 0B00011000;
+    SSPSTAT = 0B00000000; 
+    SSPCON2 = 0; 
+    SSPCON = 0B00110100;         
+    // Configuración para interrupciones que harán el ADC
+    PIE1 = 0B01001000; 
+    PIR1bits.ADIF = 0; 
+    INTCON = 0B11001000; 
 }
 
+void __interrupt() int1(void) {
+    if (1 == ADIF) {
+        valadc(&datos);
+        ADIF = 0;
+    }
+    if (1 == SSPIF) {
+        spidatos = SSPBUF;
+        SSPBUF = datos;
+        SSPIF = 0;
+    }
+}

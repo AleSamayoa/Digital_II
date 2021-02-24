@@ -46,12 +46,7 @@ void main(void) {
     while (1) {
         adcon();
         PORTD = datos;
-        if (WCOL) {
-            PORTCbits.RC0 = 1;
-        } else {
-            PORTCbits.RC0 = 0;
         }
-    }
 }
 
 //******************************************************************************

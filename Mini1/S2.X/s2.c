@@ -26,59 +26,71 @@
 #pragma config BOR4V = BOR40V   // Brown-out Reset Selection bit (Brown-out Reset set to 4.0V)
 #pragma config WRT = OFF        // Flash Program Memory Self Write Enable bits (Write protection off)
 
-
-
 #define _XTAL_FREQ 8000000            //8 MHZ
 #define B0 RB0
 #define B1 RB1
 //-----------------------------------------------------------------------------
-//Funciones
-//--------------------------------------------
+//Variables y prototipos de funciones
+//-----------------------------------------------------------------------------
 void Setup (void);
-
+void __interrupt()int1(void); 
 char  contador = 0;
+uint8_t spidatos =0;
 
 //-----------------------------------------------------------------------------
-//CONFIG
-//--------------------------------------------
+//Funciones
+//-----------------------------------------------------------------------------
 void Setup(void){
+    //Configuración de puertos
     ANSEL = 0;
     ANSELH = 0;
     TRISB = 0b00000011;
     PORTB = 0;
-    TRISC = 0;
-    PORTC = 0;
     TRISD = 0;
     PORTD = 0;
+    // Configuración SPI como esclavo
+    TRISA = 0B00100000; 
+    TRISC = 0B00011000; 
+    SSPSTAT = 0B00000000; 
+    SSPCON2 = 0; 
+    SSPCON = 0B00110100; 
+        
+    // Configuración para interrupciones en donde funcionaran los botones
+    PIE1 = 0B00001000; 
+    IOCB = 0B00000011; 
+    INTCON = 0B11001000;
 }
-//******************************************************************************
-// Funciones
-//******************************************************************************
-void inc(void){
-    contador ++;
-}
-void rest(void){
-    contador --;
+//En las interrrupciones vamos a hacer que funcione el contador
+//y se estarán mandando los datos del SPI
+void __interrupt()int1(void) {
+    GIE = 0;
+    if (1 == RBIF) {
+        if (1 == RB0) {
+            contador--;
+            PORTD = contador;
+        }
+        if (1 == RB1) {
+            contador++;
+            PORTD = contador;
+        }
+        RBIF = 0;
+    }
+    if (1 == SSPIF) {
+        spidatos = SSPBUF;
+        SSPBUF = contador;
+        SSPIF = 0;
+    }
+    GIE = 0;
 }
 
 
 //-----------------------------------------------------------------------------
-//Programis
+//Loop Principal 
 //--------------------------------------------
+//Llamamos el setup y dejamos que funcione el contador y ya
 void main(void) {
     Setup();
     while(1){
       PORTD = contador;
-      if (B0 ==1){
-                __delay_ms(25);
-                inc();
-                
-                
-        }
-      if (B1 ==1){
-                __delay_ms(25);
-                rest();
-                
-        }
-    }
+      }
 }

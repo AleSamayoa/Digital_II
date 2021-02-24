@@ -2641,33 +2641,64 @@ typedef uint16_t uintptr_t;
 
 #pragma config BOR4V = BOR40V
 #pragma config WRT = OFF
-# 37 "s2.c"
-void Setup (void);
 
+
+
+
+
+
+
+void Setup (void);
+void __attribute__((picinterrupt((""))))int1(void);
 char contador = 0;
+uint8_t spidatos =0;
 
 
 
 
 void Setup(void){
+
     ANSEL = 0;
     ANSELH = 0;
     TRISB = 0b00000011;
     PORTB = 0;
-    TRISC = 0;
-    PORTC = 0;
     TRISD = 0;
     PORTD = 0;
+
+    TRISA = 0B00100000;
+    TRISC = 0B00011000;
+    SSPSTAT = 0B00000000;
+    SSPCON2 = 0;
+    SSPCON = 0B00110100;
+
+
+    PIE1 = 0B00001000;
+    IOCB = 0B00000011;
+    INTCON = 0B11001000;
 }
 
 
+void __attribute__((picinterrupt((""))))int1(void) {
+    GIE = 0;
+    if (1 == RBIF) {
+        if (1 == RB0) {
+            contador--;
+            PORTD = contador;
+        }
+        if (1 == RB1) {
+            contador++;
+            PORTD = contador;
+        }
+        RBIF = 0;
+    }
+    if (1 == SSPIF) {
+        spidatos = SSPBUF;
+        SSPBUF = contador;
+        SSPIF = 0;
+    }
+    GIE = 0;
+}
 
-void inc(void){
-    contador ++;
-}
-void rest(void){
-    contador --;
-}
 
 
 
@@ -2677,16 +2708,5 @@ void main(void) {
     Setup();
     while(1){
       PORTD = contador;
-      if (RB0 ==1){
-                _delay((unsigned long)((25)*(8000000/4000.0)));
-                inc();
-
-
-        }
-      if (RB1 ==1){
-                _delay((unsigned long)((25)*(8000000/4000.0)));
-                rest();
-
-        }
-    }
+      }
 }

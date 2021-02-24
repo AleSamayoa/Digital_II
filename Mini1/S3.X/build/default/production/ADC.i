@@ -12,6 +12,7 @@
 
 
 
+
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -2492,7 +2493,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 6 "adc.c" 2
+# 7 "adc.c" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
 # 13 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
@@ -2627,29 +2628,28 @@ typedef int16_t intptr_t;
 
 
 typedef uint16_t uintptr_t;
-# 7 "adc.c" 2
-
-# 1 "./adc.h" 1
-# 12 "./adc.h"
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
-# 12 "./adc.h" 2
-
-
-
-void valADC (uint8_t a);
 # 8 "adc.c" 2
 
+# 1 "./adc.h" 1
+# 15 "./adc.h"
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
+# 15 "./adc.h" 2
+
+
+void valadc(volatile uint8_t *a);
+void adcon(void);
+# 9 "adc.c" 2
 
 
 
-void valADC(uint8_t a) {
-    INTCON = 0b11101000;
-    PIR1bits.ADIF = 0;
-    PIE1bits.ADIE = 1;
-    ADCON1bits.ADFM = 0;
-    if (a == 1){
-        _delay((unsigned long)((10)*(8000000/4000000.0)));
-        a = 0;
-        ADCON0bits.GO = 1;
+
+void valadc(volatile uint8_t *a) {
+    *a = ADRESH;
+}
+
+void adcon(void) {
+    if (0 == ADCON0bits.GO_nDONE) {
+        _delay((unsigned long)((5)*(4000000/4000.0)));
+        ADCON0bits.GO_nDONE = 1;
     }
 }

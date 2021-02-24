@@ -7,7 +7,7 @@
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
 # 1 "s1.c" 2
-# 16 "s1.c"
+# 13 "s1.c"
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -2488,7 +2488,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 16 "s1.c" 2
+# 13 "s1.c" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
 # 13 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
@@ -2623,7 +2623,7 @@ typedef int16_t intptr_t;
 
 
 typedef uint16_t uintptr_t;
-# 17 "s1.c" 2
+# 14 "s1.c" 2
 
 # 1 "./ADC.h" 1
 # 14 "./ADC.h"
@@ -2631,9 +2631,9 @@ typedef uint16_t uintptr_t;
 # 14 "./ADC.h" 2
 
 
-
-void valADC (uint8_t a);
-# 18 "s1.c" 2
+void valadc(volatile uint8_t *a);
+void adcon(void);
+# 15 "s1.c" 2
 
 
 
@@ -2648,44 +2648,28 @@ void valADC (uint8_t a);
 #pragma config FCMEN = OFF
 #pragma config LVP = OFF
 
-
 #pragma config BOR4V = BOR40V
 #pragma config WRT = OFF
 
 
 
 
-
-
-
-char a=1;
-char v;
-
-
-
-
-
 void setup(void);
+void __attribute__((picinterrupt((""))))int1(void);
+uint8_t spidatos = 0;
+uint8_t datos = 0;
+
 
 
 
 
 void main(void) {
-
     setup();
-
-
-
-
     while (1) {
-
-        valADC(a);
-
-
-    }
+        adcon();
+        PORTD = datos;
+        }
 }
-
-
 
 
 
@@ -2693,31 +2677,39 @@ void main(void) {
 
 void setup(void) {
 
-    ANSELH = 0;
-    ANSEL = 0b00000001;
-    TRISA = 0b00000001;
-    ADCON0 = 0b01010101;
+    TRISA = 0B00100000;
+    TRISB &= 0B11111111;
+    TRISC = 0B00011000;
+    TRISD &= 0;
+    ANSELH &= 0B00010000;
+    PORTD = 0;
+    PORTB = 0;
+    PORTC = 0;
 
+    ADCON0 = 0B01110000;
+    ADCON1 = 0B00000000;
+    ADCON0bits.ADON = 1;
 
-    OPTION_REG = 0x84;
-    TMR0 = 100;
-    INTCON = 0b11101000;
+    SSPSTAT = 0B00000000;
+    SSPCON2 = 0;
+    SSPCON = 0B00110100;
+
+    PIE1 = 0B01001000;
+    PIR1bits.ADIF = 0;
+    INTCON = 0B11001000;
 }
 
+void __attribute__((picinterrupt((""))))int1(void) {
+    GIE = 0;
+    if (1 == ADIF) {
+        valadc(&datos);
+        ADIF = 0;
+    }
 
-
-
-
-
-void __attribute__((picinterrupt(("")))) int1(void){
-
-    INTCON = 0b11101000;
-    IOCB = 0b00000011;
-    if (PIR1bits.ADIF == 1){
-           a=1;
-           v= ADRESH;
-
-           PIR1bits.ADIF = 0;
-       }
-
+    if (1 == SSPIF) {
+        spidatos = SSPBUF;
+        SSPBUF = datos;
+        SSPIF = 0;
+    }
+    GIE = 1;
 }

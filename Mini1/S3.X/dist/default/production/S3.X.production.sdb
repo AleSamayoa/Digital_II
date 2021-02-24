@@ -3,8 +3,10 @@
 [d edition pro ]
 [d chip 16F887 ]
 [d frameptr 0 ]
-"12 C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini1\S3.X\adc.c
-[v _valADC valADC `(v  1 e 1 0 ]
+"13 C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini1\S3.X\adc.c
+[v _valadc valadc `(v  1 e 1 0 ]
+"17
+[v _adcon adcon `(v  1 e 1 0 ]
 "10 C:\Program Files\Microchip\xc8\v2.31\pic\sources\c90\common\sprcadd.c
 [v ___fladd __fladd `(d  1 e 4 0 ]
 "4 C:\Program Files\Microchip\xc8\v2.31\pic\sources\c90\common\Umul8_16.c
@@ -13,21 +15,19 @@
 [v ___eecpymem __eecpymem `(v  1 e 1 0 ]
 "39
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
-"46 C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini1\S3.X\s3.c
+"47 C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini1\S3.X\s3.c
 [v _main main `(v  1 e 1 0 ]
-"57
+"67
 [v _setup setup `(v  1 e 1 0 ]
-"68
-[v _semaforo semaforo `(v  1 e 1 0 ]
-"81
+"90
 [v _int1 int1 `II(v  1 e 1 0 ]
-"59 C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
-[v _TMR0 TMR0 `VEuc  1 e 1 @1 ]
+"228 C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
+[v _PORTB PORTB `VEuc  1 e 1 @6 ]
 "352
 [v _PORTD PORTD `VEuc  1 e 1 @8 ]
 "459
 [v _INTCON INTCON `VEuc  1 e 1 @11 ]
-[s S44 . 1 `uc 1 TMR1IF 1 0 :1:0 
+[s S89 . 1 `uc 1 TMR1IF 1 0 :1:0 
 `uc 1 TMR2IF 1 0 :1:1 
 `uc 1 CCP1IF 1 0 :1:2 
 `uc 1 SSPIF 1 0 :1:3 
@@ -36,19 +36,23 @@
 `uc 1 ADIF 1 0 :1:6 
 ]
 "553
-[u S52 . 1 `S44 1 . 1 0 ]
-[v _PIR1bits PIR1bits `VES52  1 e 1 @12 ]
+[u S97 . 1 `S89 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES97  1 e 1 @12 ]
+"843
+[v _SSPBUF SSPBUF `VEuc  1 e 1 @19 ]
+"850
+[v _SSPCON SSPCON `VEuc  1 e 1 @20 ]
 "1238
 [v _ADRESH ADRESH `VEuc  1 e 1 @30 ]
 "1245
 [v _ADCON0 ADCON0 `VEuc  1 e 1 @31 ]
-[s S137 . 1 `uc 1 ADON 1 0 :1:0 
+[s S37 . 1 `uc 1 ADON 1 0 :1:0 
 `uc 1 GO_nDONE 1 0 :1:1 
 `uc 1 CHS 1 0 :4:2 
 `uc 1 ADCS 1 0 :2:6 
 ]
 "1276
-[s S142 . 1 `uc 1 . 1 0 :1:0 
+[s S42 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO 1 0 :1:1 
 `uc 1 CHS0 1 0 :1:2 
 `uc 1 CHS1 1 0 :1:3 
@@ -57,73 +61,65 @@
 `uc 1 ADCS0 1 0 :1:6 
 `uc 1 ADCS1 1 0 :1:7 
 ]
-[s S151 . 1 `uc 1 . 1 0 :1:0 
+[s S51 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 nDONE 1 0 :1:1 
 ]
-[s S154 . 1 `uc 1 . 1 0 :1:0 
+[s S54 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO_DONE 1 0 :1:1 
 ]
-[u S157 . 1 `S137 1 . 1 0 `S142 1 . 1 0 `S151 1 . 1 0 `S154 1 . 1 0 ]
-[v _ADCON0bits ADCON0bits `VES157  1 e 1 @31 ]
-"1346
-[v _OPTION_REG OPTION_REG `VEuc  1 e 1 @129 ]
+[u S57 . 1 `S37 1 . 1 0 `S42 1 . 1 0 `S51 1 . 1 0 `S54 1 . 1 0 ]
+[v _ADCON0bits ADCON0bits `VES57  1 e 1 @31 ]
 "1416
 [v _TRISA TRISA `VEuc  1 e 1 @133 ]
-[s S97 . 1 `uc 1 TMR1IE 1 0 :1:0 
-`uc 1 TMR2IE 1 0 :1:1 
-`uc 1 CCP1IE 1 0 :1:2 
-`uc 1 SSPIE 1 0 :1:3 
-`uc 1 TXIE 1 0 :1:4 
-`uc 1 RCIE 1 0 :1:5 
-`uc 1 ADIE 1 0 :1:6 
-]
-"1718
-[u S105 . 1 `S97 1 . 1 0 ]
-[v _PIE1bits PIE1bits `VES105  1 e 1 @140 ]
-"2416
-[v _IOCB IOCB `VEuc  1 e 1 @150 ]
-[s S116 . 1 `uc 1 . 1 0 :4:0 
-`uc 1 VCFG0 1 0 :1:4 
-`uc 1 VCFG1 1 0 :1:5 
-`uc 1 . 1 0 :1:6 
-`uc 1 ADFM 1 0 :1:7 
-]
-"2991
-[u S122 . 1 `S116 1 . 1 0 ]
-[v _ADCON1bits ADCON1bits `VES122  1 e 1 @159 ]
-"3387
-[v _ANSEL ANSEL `VEuc  1 e 1 @392 ]
+"1478
+[v _TRISB TRISB `VEuc  1 e 1 @134 ]
+"1540
+[v _TRISC TRISC `VEuc  1 e 1 @135 ]
+"1602
+[v _TRISD TRISD `VEuc  1 e 1 @136 ]
+"1702
+[v _PIE1 PIE1 `VEuc  1 e 1 @140 ]
+"1979
+[v _SSPCON2 SSPCON2 `VEuc  1 e 1 @145 ]
+"2177
+[v _SSPSTAT SSPSTAT `VEuc  1 e 1 @148 ]
+"2977
+[v _ADCON1 ADCON1 `VEuc  1 e 1 @159 ]
 "3449
 [v _ANSELH ANSELH `VEuc  1 e 1 @393 ]
+"3587
+[v _ADIF ADIF `VEb  1 e 0 @102 ]
+"4277
+[v _SSPIF SSPIF `VEb  1 e 0 @99 ]
 "40 C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini1\S3.X\s3.c
-[v _a a `uc  1 e 1 0 ]
+[v _spidatos spidatos `uc  1 e 1 0 ]
 "41
-[v _v v `uc  1 e 1 0 ]
-"46
+[v _datos datos `uc  1 e 1 0 ]
+"47
 [v _main main `(v  1 e 1 0 ]
 {
-"52
+"61
 } 0
-"12 C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini1\S3.X\adc.c
-[v _valADC valADC `(v  1 e 1 0 ]
-{
-[v valADC@a a `uc  1 a 1 wreg ]
-[v valADC@a a `uc  1 a 1 wreg ]
-[v valADC@a a `uc  1 a 1 4 ]
-"22
-} 0
-"57 C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini1\S3.X\s3.c
+"67
 [v _setup setup `(v  1 e 1 0 ]
 {
-"67
+"88
 } 0
-"68
-[v _semaforo semaforo `(v  1 e 1 0 ]
+"17 C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini1\S3.X\adc.c
+[v _adcon adcon `(v  1 e 1 0 ]
 {
-"80
+"22
 } 0
-"81
+"90 C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini1\S3.X\s3.c
 [v _int1 int1 `II(v  1 e 1 0 ]
 {
-"92
+"100
+} 0
+"13 C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini1\S3.X\adc.c
+[v _valadc valadc `(v  1 e 1 0 ]
+{
+[v valadc@a a `*.1VEuc  1 a 1 wreg ]
+[v valadc@a a `*.1VEuc  1 a 1 wreg ]
+[v valadc@a a `*.1VEuc  1 a 1 1 ]
+"15
 } 0

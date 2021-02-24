@@ -2626,13 +2626,13 @@ typedef uint16_t uintptr_t;
 # 13 "s3.c" 2
 
 # 1 "./adc.h" 1
-# 12 "./adc.h"
+# 15 "./adc.h"
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
-# 12 "./adc.h" 2
+# 15 "./adc.h" 2
 
 
-
-void valADC (uint8_t a);
+void valadc(volatile uint8_t *a);
+void adcon(void);
 # 14 "s3.c" 2
 
 
@@ -2659,9 +2659,10 @@ void valADC (uint8_t a);
 
 
 void setup(void);
-void semaforo(void);
-char a=1;
-char v;
+void __attribute__((picinterrupt((""))))int1(void);
+uint8_t spidatos = 0;
+uint8_t datos = 0;
+
 
 
 
@@ -2669,47 +2670,54 @@ char v;
 void main(void) {
     setup();
     while (1) {
-        valADC(a);
-        semaforo();
+        adcon();
+
+        if (datos < 80) {
+            PORTD = 0B00000100;
+
+        } else if (datos > 91) {
+            PORTD = 0B00000001;
+        } else {
+            PORTD = 0B00000010;
+        }
     }
 }
 
 
 
 
+
 void setup(void) {
-    ANSELH = 0;
-    ANSEL = 0b00000001;
-    TRISA = 0b00000001;
-    ADCON0 = 0b01010101;
 
+    TRISB &= 0B11111111;
+    TRISD &= 0;
+    ANSELH &= 0B00010000;
+    PORTD = 0;
+    PORTB = 0;
 
-    OPTION_REG = 0x84;
-    TMR0 = 100;
-    INTCON = 0b11101000;
+    ADCON0 = 0B01110000;
+    ADCON1 = 0B00010000;
+    ADCON0bits.ADON = 1;
+
+    TRISA = 0B00100000;
+    TRISC = 0B00011000;
+    SSPSTAT = 0B00000000;
+    SSPCON2 = 0;
+    SSPCON = 0B00110100;
+
+    PIE1 = 0B01001000;
+    PIR1bits.ADIF = 0;
+    INTCON = 0B11001000;
 }
-void semaforo (void){
-   while (1) {
-        if (v < 80){
-            PORTD = 0b00000001;
-        }
-        else if(v >= 80 && v <= 91){
-            PORTD = 0b00000010;
-        }
-        else {
-            PORTD = 0b00000100;
-        }
-}
-}
-void __attribute__((picinterrupt(("")))) int1(void){
 
-    INTCON = 0b11101000;
-    IOCB = 0b00000011;
-    if (PIR1bits.ADIF == 1){
-           a=1;
-           v= ADRESH;
-
-           PIR1bits.ADIF = 0;
-       }
-
+void __attribute__((picinterrupt(("")))) int1(void) {
+    if (1 == ADIF) {
+        valadc(&datos);
+        ADIF = 0;
+    }
+    if (1 == SSPIF) {
+        spidatos = SSPBUF;
+        SSPBUF = datos;
+        SSPIF = 0;
+    }
 }
