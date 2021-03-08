@@ -66,7 +66,7 @@ void nack_i2c(void)
     while(ACKEN);
 }
 
-unsigned char I2C_Master_Write(unsigned char data)
+unsigned char mas_write(unsigned char data)
 {
     wait();
     SSPBUF = data;
