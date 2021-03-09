@@ -1,9 +1,11 @@
+//Se adaptó la configuración de los ejemplos de Adafruit IO 
 /************************ Adafruit IO Config *******************************/
 
 // visit io.adafruit.com if you need to create an account,
 // or if you need your Adafruit IO key.
+//Voy a dejar esto sin nombre ahorita pero se cargó con nombre para que funcionara
 #define IO_USERNAME "Ale_Samayoa"
-#define IO_KEY "aio_AdPi22SdqdGblWAHXrjtV1VhmLpK"
+#define IO_KEY "iokey"
 
 /******************************* WIFI **************************************/
 
@@ -19,7 +21,7 @@
 //   - Adafruit AirLift Breakout -> https://www.adafruit.com/product/4201
 //   - Adafruit AirLift Shield -> https://www.adafruit.com/product/4285
 //   - Adafruit AirLift FeatherWing -> https://www.adafruit.com/product/4264
-
+//Pongo mi dirección de WIFI
 #define WIFI_SSID "TIGO-61AA"
 #define WIFI_PASS "2NJ555305178"
 

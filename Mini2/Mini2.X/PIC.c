@@ -31,66 +31,59 @@
 
 #define _XTAL_FREQ 4000000
 
-//**********************************************************************************************************************************************
-// Variables
-//***********************************************************************************************************************************************
+//**************************************************************
+// Variables y prototipos de funciones
+//**************************************************************
 char input;
-//***********************************************************************************************************************************************
-// Prototipos de funciones
-//**********************************************************************************************************************************************
 void Setup(void);
 
-//**************************************************************
-// Vector de interrupción
-//**************************************************************
+//******************************************************************************
+//Loop principal 
+//******************************************************************************
+void main(void) {
+    __delay_ms(500);
+    Setup();    
+    giro_init();  
+    while (1) {
+            giro_read(); 
+    }
+    return;
+}
 
-void __interrupt() ISR(void) {
-//se utiliza la interrupción para las luces piloto, según la entrada se prende o apagan leds 
+
+//**************************************************************
+// Funciones 
+//**************************************************************
+void Setup(void) {
+    //Configuración de puertos
+    ANSEL = 0;
+    TRISA = 0;
+    PORTA = 0;
+    // Configuración para interrupciones que encenderán las luces
+    INTCONbits.GIE = 1;
+    INTCONbits.PEIE = 1;
+    PIE1bits.RCIE = 1; 
+    return;
+
+}
+void __interrupt() int1(void) {
+    //Se recibe el mensaje 1on/1off/2on/2off de la comunicación con la ESP32 
+    //que se encienda o apague los leds 
     if (PIR1bits.RCIF) {
         input = RCREG;
-        if (input == 'led1on') {
+        if (input == '1on') {
             PORTAbits.RA0 = 1;
         }
-        if (input == 'led1off') {
+        if (input == '1off') {
             PORTAbits.RA0 = 0;
         }
-        if (input == 'led2on') {
+        if (input == '2on') {
             PORTAbits.RA1 = 1;
         }
-        if (input == 'led2off') {
+        if (input == '2off') {
             PORTAbits.RA1 = 0;
         }
     }
 }
 
-void main(void) {
-    __delay_ms(1000);
-    Setup();    //se colocan condiciones iniciales
-    
-    giro_init();  //se mandan las direcciones para comunicarse y configurar el sensor
 
-
-
-    while (1) {
-            giro_read(); //esta función permite leer los datos qeu el sensor i2c manda
-
- 
-
-    }
-    return;
-}
-
-void Setup(void) {
-
-    ANSEL = 0;
-    TRISA = 0;
-    PORTA = 0;
-
-    // configuracion de la interrupcion 
-    INTCONbits.GIE = 1;
-    INTCONbits.PEIE = 1;
-    PIE1bits.RCIE = 1; // se activa la de recibir 
-    //se usan interrupciones para las luces piloto
-    return;
-
-}

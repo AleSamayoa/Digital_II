@@ -8,12 +8,12 @@
 #include <stdint.h>
 #include "USART.h"
 
-void config_us(const uint32_t baud_rate, const uint8_t BRGH) {
+void config_us(const uint32_t baudrate, const uint8_t BRGH) {
     if (BRGH == 0) {
-        SPBRG = _XTAL_FREQ/(64*baud_rate) - 1;
+        SPBRG = _XTAL_FREQ/(64*baudrate) - 1;
         TXSTAbits.BRGH = 0;
     } else {
-        SPBRG = _XTAL_FREQ/(16*baud_rate) - 1;
+        SPBRG = _XTAL_FREQ/(16*baudrate) - 1;
         TXSTAbits.BRGH = 1;
     }
     BAUDCTL = 0B00000000; 

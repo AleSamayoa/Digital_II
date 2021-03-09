@@ -2916,7 +2916,7 @@ void main(void) {
 
 
     while (1) {
-        giro_read();
+            giro_read();
 
 
 

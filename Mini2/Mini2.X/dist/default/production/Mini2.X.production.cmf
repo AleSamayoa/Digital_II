@@ -11,7 +11,7 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
-$C:\Users\ALESAM~1\AppData\Local\Temp\shg0.o
+$C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.o
 reset_vec CODE 0 0 0 3 2
 end_init CODE 0 C C 3 2
 config CONFIG 4 2007 2007 2 2
@@ -111,17 +111,17 @@ STRING 1800-1FFF 2
 # All other numeric values are in decimal.
 %LINETAB
 $dist/default/production\Mini2.X.production.o
-F cinit CODE >1113:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-F cinit CODE >1116:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-F cinit CODE >1148:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-10 cinit CODE >1151:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-11 cinit CODE >1152:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-12 cinit CODE >1153:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-13 cinit CODE >1154:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-14 cinit CODE >1155:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-19 cinit CODE >1161:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-19 cinit CODE >1163:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-1A cinit CODE >1164:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
+F cinit CODE >1113:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+F cinit CODE >1116:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+F cinit CODE >1148:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+10 cinit CODE >1151:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+11 cinit CODE >1152:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+12 cinit CODE >1153:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+13 cinit CODE >1154:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+14 cinit CODE >1155:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+19 cinit CODE >1161:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+19 cinit CODE >1163:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+1A cinit CODE >1164:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
 4 intentry CODE >47:C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini2\Mini2.X\PIC.c
 13B1 text31 CODE >47:C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini2\Mini2.X\PIC.c
 13B1 text31 CODE >49:C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini2\Mini2.X\PIC.c
@@ -769,16 +769,16 @@ E1 text1 CODE >97:C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini2\Mini2.X
 13D0 maintext CODE >68:C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini2\Mini2.X\PIC.c
 13D5 maintext CODE >70:C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini2\Mini2.X\PIC.c
 13DA maintext CODE >75:C:\Users\Ale Samayoa\Documents\GitHub\Digital_II\Mini2\Mini2.X\PIC.c
-1325 clrtext CODE >1135:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-1325 clrtext CODE >1136:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-1326 clrtext CODE >1137:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-1326 clrtext CODE >1138:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-1327 clrtext CODE >1139:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-1328 clrtext CODE >1140:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-1329 clrtext CODE >1141:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-132A clrtext CODE >1142:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-132B clrtext CODE >1143:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
-132C clrtext CODE >1144:C:\Users\ALESAM~1\AppData\Local\Temp\shg0.s
+1325 clrtext CODE >1135:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+1325 clrtext CODE >1136:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+1326 clrtext CODE >1137:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+1326 clrtext CODE >1138:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+1327 clrtext CODE >1139:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+1328 clrtext CODE >1140:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+1329 clrtext CODE >1141:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+132A clrtext CODE >1142:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+132B clrtext CODE >1143:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
+132C clrtext CODE >1144:C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.s
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -805,13 +805,13 @@ _BF 4A0 0 ABS 0 - dist/default/production\Mini2.X.production.o
 __Hstrings 0 0 ABS 0 strings -
 _RCEN 48B 0 ABS 0 - dist/default/production\Mini2.X.production.o
 _RSEN 489 0 ABS 0 - dist/default/production\Mini2.X.production.o
-___sp 0 0 STACK 2 stack C:\Users\ALESAM~1\AppData\Local\Temp\shg0.o
+___sp 0 0 STACK 2 stack C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.o
 _ftoa 10F4 0 CODE 0 text7 dist/default/production\Mini2.X.production.o
 _main 2784 0 CODE 0 maintext dist/default/production\Mini2.X.production.o
 _stop 265A 0 CODE 0 text23 dist/default/production\Mini2.X.production.o
 _wait 26EA 0 CODE 0 text26 dist/default/production\Mini2.X.production.o
 btemp 7E 0 ABS 0 - dist/default/production\Mini2.X.production.o
-start 18 0 CODE 0 init C:\Users\ALESAM~1\AppData\Local\Temp\shg0.o
+start 18 0 CODE 0 init C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.o
 ___flmul@aexp 3C 0 BANK0 1 cstackBANK0 dist/default/production\Mini2.X.production.o
 ___flmul@bexp 3D 0 BANK0 1 cstackBANK0 dist/default/production\Mini2.X.production.o
 ___flmul@prod 3E 0 BANK0 1 cstackBANK0 dist/default/production\Mini2.X.production.o
@@ -833,12 +833,12 @@ __size_of___llmod 0 0 ABS 0 - dist/default/production\Mini2.X.production.o
 __HbssCOMMON 0 0 ABS 0 bssCOMMON -
 ?___wmul 73 0 COMMON 1 cstackCOMMON dist/default/production\Mini2.X.production.o
 __Hpowerup 0 0 CODE 0 powerup -
-intlevel0 0 0 ENTRY 0 functab C:\Users\ALESAM~1\AppData\Local\Temp\shg0.o
-intlevel1 0 0 ENTRY 0 functab C:\Users\ALESAM~1\AppData\Local\Temp\shg0.o
-intlevel2 0 0 ENTRY 0 functab C:\Users\ALESAM~1\AppData\Local\Temp\shg0.o
-intlevel3 0 0 ENTRY 0 functab C:\Users\ALESAM~1\AppData\Local\Temp\shg0.o
-intlevel4 0 0 ENTRY 0 functab C:\Users\ALESAM~1\AppData\Local\Temp\shg0.o
-intlevel5 0 0 ENTRY 0 functab C:\Users\ALESAM~1\AppData\Local\Temp\shg0.o
+intlevel0 0 0 ENTRY 0 functab C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.o
+intlevel1 0 0 ENTRY 0 functab C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.o
+intlevel2 0 0 ENTRY 0 functab C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.o
+intlevel3 0 0 ENTRY 0 functab C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.o
+intlevel4 0 0 ENTRY 0 functab C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.o
+intlevel5 0 0 ENTRY 0 functab C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.o
 __LbssCOMMON 0 0 ABS 0 bssCOMMON -
 wtemp0 7E 0 ABS 0 - dist/default/production\Mini2.X.production.o
 ___llmod@divisor 28 0 BANK0 1 cstackBANK0 dist/default/production\Mini2.X.production.o
@@ -875,8 +875,8 @@ __size_of_isdigit 0 0 ABS 0 - dist/default/production\Mini2.X.production.o
 __size_of_mas_write 0 0 ABS 0 - dist/default/production\Mini2.X.production.o
 _usart_string 2956 0 CODE 0 text2 dist/default/production\Mini2.X.production.o
 __Umul8_16@multiplicand 73 0 COMMON 1 cstackCOMMON dist/default/production\Mini2.X.production.o
-___stackhi 0 0 ABS 0 - C:\Users\ALESAM~1\AppData\Local\Temp\shg0.o
-___stacklo 0 0 ABS 0 - C:\Users\ALESAM~1\AppData\Local\Temp\shg0.o
+___stackhi 0 0 ABS 0 - C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.o
+___stacklo 0 0 ABS 0 - C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.o
 _dpowers 2020 0 STRING 0 strings dist/default/production\Mini2.X.production.o
 __size_of_Rinit 0 0 ABS 0 - dist/default/production\Mini2.X.production.o
 __size_of_Setup 0 0 ABS 0 - dist/default/production\Mini2.X.production.o
@@ -908,7 +908,7 @@ __size_of_usart_string 0 0 ABS 0 - dist/default/production\Mini2.X.production.o
 _TRISC3 43B 0 ABS 0 - dist/default/production\Mini2.X.production.o
 _TRISC4 43C 0 ABS 0 - dist/default/production\Mini2.X.production.o
 _isdigit$856 73 0 COMMON 1 cstackCOMMON dist/default/production\Mini2.X.production.o
-___int_sp 0 0 STACK 2 stack C:\Users\ALESAM~1\AppData\Local\Temp\shg0.o
+___int_sp 0 0 STACK 2 stack C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.o
 __Hbank0 0 0 ABS 0 bank0 -
 __Hbank1 0 0 ABS 0 bank1 -
 __Hbank2 0 0 ABS 0 bank2 -
@@ -980,7 +980,7 @@ usart_string@max 76 0 COMMON 1 cstackCOMMON dist/default/production\Mini2.X.prod
 __Lintentry 8 0 CODE 0 intentry -
 ___lldiv@divisor 20 0 BANK0 1 cstackBANK0 dist/default/production\Mini2.X.production.o
 __stringtab 2000 0 STRING 0 strings dist/default/production\Mini2.X.production.o
-reset_vec 0 0 CODE 0 reset_vec C:\Users\ALESAM~1\AppData\Local\Temp\shg0.o
+reset_vec 0 0 CODE 0 reset_vec C:\Users\ALESAM~1\AppData\Local\Temp\sjp0.o
 __end_of___xxtofl 3000 0 CODE 0 text12 dist/default/production\Mini2.X.production.o
 config_us@baud_rate 28 0 BANK0 1 cstackBANK0 dist/default/production\Mini2.X.production.o
 __size_of___flge 0 0 ABS 0 - dist/default/production\Mini2.X.production.o

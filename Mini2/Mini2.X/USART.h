@@ -15,7 +15,7 @@
 #include <stdint.h>
 
 
-void config_us(const uint32_t baud_rate, const uint8_t BRGH);
+void config_us(const uint32_t baudrate, const uint8_t BRGH);
 void usart_char(const char t);
 void usart_string(const char *data, const uint8_t max);
 uint8_t Rusart();
