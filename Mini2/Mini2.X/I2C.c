@@ -6,12 +6,13 @@
 /* 
  * Se utilizó y se adaptaron las librerías de Khaled Magdy
  * de la página Deep Blue Embedded
- * Enlace: https://deepbluembedded.com/interfacing-i2c-lcd-16x2-tutorial-with-pic-microcontrollers-mplab-xc8/
+ * Enlace: https://deepbluembedded.com
   */ 
 
 #include <xc.h>
 #include "I2C.h"
 
+//Configuración i2c como master
 void config_i2cmas()
 {
   SSPCON  = 0x28;
@@ -21,18 +22,18 @@ void config_i2cmas()
   SCL_D = 1;
   SDA_D = 1; 
 }
-
+//Espera hasta que se ya no hayan datos que se esten mandando
 void wait()
 {
     while ((SSPSTAT & 0x04) || (SSPCON2 & 0x1F));
 }
-
+//Se inicia ya el proceso como masterdespues de esperar
 void mas_init()
 {
     wait();
     SEN = 1;
 }
-
+//Empieza la comunicación 
 void i2c_init(char d)
 {
     wait();
@@ -51,21 +52,21 @@ void stop()
     wait();
     PEN = 1;
 }
-
+//Manda los datos ACK
 void ack_i2c(void)
 {
-	ACKDT = 0;			// 0 -> ACK
-    ACKEN = 1;			// Send ACK
+	ACKDT = 0;			
+    ACKEN = 1;			
     while(ACKEN);
 }
-
+//Manda los datos NACK
 void nack_i2c(void)
 {
-	ACKDT = 1;			// 1 -> NACK
-	ACKEN = 1;			// Send NACK
+	ACKDT = 1;			
+	ACKEN = 1;			
     while(ACKEN);
 }
-
+//Se mandan los datos por el buffer
 unsigned char mas_write(unsigned char data)
 {
     wait();
@@ -74,10 +75,9 @@ unsigned char mas_write(unsigned char data)
 	SSPIF = 0;
     return ACKSTAT;
 }
-
+//Se reciben los datos 
 unsigned char mas_readbyte(void)
 {
-    //---[ Receive & Return A Byte ]---
     wait();
     RCEN = 1;		  // Enable & Start Reception
 	while(!SSPIF);	  // Wait Until Completion
