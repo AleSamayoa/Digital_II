@@ -5,7 +5,7 @@
 //**************************************************************************************************************
 
 //**************************************************************************************************************
-// LIBRERÍAS
+// Librerias
 //**************************************************************************************************************
 #include <stdint.h>
 #include <stdbool.h>
@@ -29,75 +29,74 @@
 
 
 //**************************************************************************************************************
-// Variables Globales
+// Variables
 //**************************************************************************************************************
 uint32_t        i = 0;
 uint32_t        ui32Period;
-uint32_t        receive = 114;
-unsigned char   send_data=0;
-uint8_t        par1 = 0;
-uint8_t        par2 = 0;
-uint8_t        par3 = 0;
-uint8_t        par4 = 0;
-bool        par1s = false;
-bool        par2s = false;
-bool        par3s = false;
-bool        par4s = false;
+uint32_t        data = 0;
+unsigned char   datos=0;
+uint8_t         par1 = 0;
+uint8_t         par2 = 0;
+uint8_t         par3 = 0;
+uint8_t         par4 = 0;
+bool            par1s = false;
+bool            par2s = false;
+bool            par3s = false;
+bool            par4s = false;
+bool            par1o=false;
+bool            par2o=false;
+bool            par3o=false;
+bool            par4o=false;
 
-bool        par1o=false;
-bool        par2o=false;
-bool        par3o=false;
-bool        par4o=false;
-
-
-uint32_t        botones = 0;
-unsigned char   disp = 0;
 //**************************************************************************************************************
-// Prototipos de Funciones
+// Prototipos
 //**************************************************************************************************************
-void uart_test(void);
-void InitUART(void);
+
+void initUART(void);
 void setup(void);
+void mandar_datos(void)
 
 
 //**************************************************************************************************************
-// Función Principal
+// Loop Principal
 //**************************************************************************************************************
 int main(void){
+    //Configuración
     setup();
 
     while (1)    {
-       //Leemos los botones
+       //Miramos el estado de los botones
        par1 = GPIOPinRead(GPIO_PORTB_BASE, GPIO_PIN_0);
        par2 = GPIOPinRead(GPIO_PORTB_BASE, GPIO_PIN_1);
        par3 = GPIOPinRead(GPIO_PORTE_BASE, GPIO_PIN_4);
        par4 = GPIOPinRead(GPIO_PORTE_BASE, GPIO_PIN_5);
-       //Calculamos el estado de cada boton individualmente
+       //Como los state de los parqueos son bools, si los botones estan encendidos serán true
        par1s = (par1==0);
        par2s = (par2==0);
        par3s = (par3==0);
        par4s = (par4==0);
 
-       //Las luces rojas apagadas y las verdes encendidas
+       //El estado de inicio
+       //Las luces verdes encendidas
        GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_7, GPIO_PIN_7);
        GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_6, GPIO_PIN_6);
        GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_5, GPIO_PIN_5);
        GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, GPIO_PIN_4);
-
+       //Las rojas apagadas
        GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_7, 0);
        GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_6, 0);
        GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_5, 0);
        GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_4, 0);
 
-       //Las flags apagadas
+       //Las flags de ocupado empiezan apagadas
        par1o=false;
        par2o=false;
        par3o=false;
        par4o=false;
 
-
+       //Si el estado es verdadero empiezan los ifs
         if (par1s){
-               //Si esta ocupado, encendemos la luz roja y apagamos luz verde
+               //Si esta ocupado, encendemos la luz roja y apagamos luz verde, encendemos las flags
                GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_7 , GPIO_PIN_7);
                GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_7, 0);
                par1o= true;
@@ -122,86 +121,78 @@ int main(void){
                GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, 0);
                par4o=true;
            }
-
-           disp= 4- (par1o+par2o+par3o+par4o);
-
+           if (datos==1){
+               datos=0;
+               mandar_datos();
+           }
 
        }
 
 }
 
 
-
 //**************************************************************************************************************
 // Inicialización de UART
 //**************************************************************************************************************
-void InitUART(void)
+void initUART(void)
 {
-    /*Enable the GPIO Port A*/
+    //GPIO port A
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
 
-    /*Enable the peripheral UART Module 0*/
+    //Peripehral UART0
     SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
 
-    /* Make the UART pins be peripheral controlled. */
+    //Pins peripheral controlled
     GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
 
-    /* Sets the configuration of a UART. */
+    //Configuración UART: 115200, 8 data bits, 1 stop bit, none parity
     UARTConfigSetExpClk(UART0_BASE, SysCtlClockGet(), 115200, (UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE | UART_CONFIG_PAR_NONE));
-    //Borramos todas las banderas principales antes de inicializar la interrupción
-    UARTIntClear(UART0_BASE, UART_INT_RX | UART_INT_RT | UART_INT_TX | UART_INT_FE | UART_INT_PE | UART_INT_BE | UART_INT_OE | UART_INT_RI | UART_INT_CTS | UART_INT_DCD | UART_INT_DSR);
-    //Inicializamos la interrupción del uart0
-    IntEnable(INT_UART0);
-    //Inicializamos las interrupciones del módulo UART
-    UARTIntEnable(UART0_BASE, UART_INT_RX | UART_INT_RT);
-    //**************************************************************************************************************************************************************************************
-    //Inicializar el UART2
-    //**************************************************************************************************************************************************************************************
-    HWREG(GPIO_PORTD_BASE+GPIO_O_LOCK) = GPIO_LOCK_KEY;
 
+    //Limpiamos banderas
+    UARTIntClear(UART0_BASE, UART_INT_RX | UART_INT_RT | UART_INT_TX | UART_INT_FE | UART_INT_PE | UART_INT_BE | UART_INT_OE | UART_INT_RI | UART_INT_CTS | UART_INT_DCD | UART_INT_DSR);
+
+    //Se inicia la UART y las interrupciones
+    IntEnable(INT_UART0);
+    UARTIntEnable(UART0_BASE, UART_INT_RX | UART_INT_RT);
+
+    //Iniciamos también el Uart2
+    HWREG(GPIO_PORTD_BASE+GPIO_O_LOCK) = GPIO_LOCK_KEY;
     HWREG(GPIO_PORTD_BASE+GPIO_O_CR) |= GPIO_PIN_7;
 
-    //Habilitamos el modulo UART2
+    //Lo habilitamos
     SysCtlPeripheralEnable(SYSCTL_PERIPH_UART2);
     //HWREG(GPIO_PORTD_BASE,);
 
-    //Configuramos los puertos D pines 6 y 7 para que los use el uart
+    //Los pines D6 y D7 van a ser los pines
     GPIOPinTypeUART(GPIO_PORTD_BASE, GPIO_PIN_6 | GPIO_PIN_7);
 
-    /* Sets the configuration of a UART. */
+    //Configuración UART: 115200, 8 data bits, 1 stop bit, none parity
     UARTConfigSetExpClk(UART2_BASE, SysCtlClockGet(), 115200, (UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE | UART_CONFIG_PAR_NONE));
 
-    //Borramos todas las banderas principales antes de inicializar la interrupción
+    //Limpiamos banderas
     UARTIntClear(UART2_BASE, UART_INT_RX | UART_INT_RT | UART_INT_TX | UART_INT_FE | UART_INT_PE | UART_INT_BE | UART_INT_OE | UART_INT_RI | UART_INT_CTS | UART_INT_DCD | UART_INT_DSR);
 
-    //Habilitamos el uart en los pines 6 y 7
+    //RX y TX en D6 y D7
     GPIOPinConfigure(GPIO_PD6_U2RX);
     GPIOPinConfigure(GPIO_PD7_U2TX);
 
 
 }
 
-
-//**************************************************************************************************************
-// Handler de la interrupción del TIMER 0 - Recordar modificar el archivo tm4c123ght6pm_startup_css.c
-//**************************************************************************************************************
+//Interrupción del TIMER 0
 void Timer0IntHandler(void)
 {
     // Clear the timer interrupt
     TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
-    // send data every timer interrupt
-    send_data=1;
+    datos=1;
 
 }
-//**************************************************************************************************************
-// Handler de la interrupción del UART0 - Recordar modificar el archivo tm4c123ght6pm_startup_css.c
-//**************************************************************************************************************
+
+//Interrupción del UART0
 void UARTIntHandler(void){
-//acá va la rutina que hace toggle a los leds de la tiva según el caracter que reciba
-    //Clear the UART interrupt
+    //Clear interrupt
     UARTIntClear(UART0_BASE, UART_INT_RX | UART_INT_RT);
-    //hacer una serie de ifs que detecten el caracter que se recibió
-    receive = UARTCharGet(UART0_BASE);
+    data = UARTCharGet(UART0_BASE);
     UARTCharPut(UART0_BASE, receive); //enviamos el caracter como prueba
 
 }
@@ -229,7 +220,7 @@ void setup(void){
     GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7);
 
     //UART
-    InitUART();
+    initUART();
 
     //*************************************************************************************************************************
     //Configuración del timer 0
@@ -256,3 +247,11 @@ void setup(void){
     TimerEnable(TIMER0_BASE, TIMER_A);
 }
 
+//Se mandan por la UART las banderas de ocupado
+void mandar_datos(void){
+    UARTCharPut(UART2_BASE, num2string(par1o));
+    UARTCharPut(UART2_BASE, num2string(par2o));
+    UARTCharPut(UART2_BASE, num2string(par3o));
+    UARTCharPut(UART2_BASE, num2string(par4o));
+
+}
